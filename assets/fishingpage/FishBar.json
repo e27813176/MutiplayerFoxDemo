@@ -1,0 +1,60 @@
+{"frames": [
+
+{
+	"filename": "EnergyBar.png",
+	"frame": {"x":87,"y":229,"w":314,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":31,"w":314,"h":19},
+	"sourceSize": {"w":326,"h":79}
+},
+{
+	"filename": "FishBar.png",
+	"frame": {"x":1,"y":1,"w":325,"h":79},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":325,"h":79},
+	"sourceSize": {"w":326,"h":79}
+},
+{
+	"filename": "FishBarBG.png",
+	"frame": {"x":87,"y":163,"w":283,"h":31},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":42,"y":25,"w":283,"h":31},
+	"sourceSize": {"w":326,"h":79}
+},
+{
+	"filename": "FishBarLight.png",
+	"frame": {"x":1,"y":163,"w":84,"h":79},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":79},
+	"sourceSize": {"w":326,"h":79}
+},
+{
+	"filename": "FishBarMyself.png",
+	"frame": {"x":1,"y":82,"w":325,"h":79},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":325,"h":79},
+	"sourceSize": {"w":326,"h":79}
+},
+{
+	"filename": "FishBarMyselfBG.png",
+	"frame": {"x":87,"y":196,"w":283,"h":31},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":42,"y":25,"w":283,"h":31},
+	"sourceSize": {"w":326,"h":79}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "FishBar.png",
+	"format": "RGBA8888",
+	"size": {"w":402,"h":249},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:0145f5dd69d84ad833310159a6bff228:208627148ad326252a56911245cb84ac:f16c99a3a4123eff517897538c934a6b$"
+}
+}
