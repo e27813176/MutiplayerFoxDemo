@@ -1,0 +1,36 @@
+{"frames": [
+
+{
+	"filename": "TutorialAddText.png",
+	"frame": {"x":1,"y":1,"w":202,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":694,"y":238,"w":202,"h":112},
+	"sourceSize": {"w":1600,"h":800}
+},
+{
+	"filename": "TutorialMinusText.png",
+	"frame": {"x":1,"y":115,"w":195,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":694,"y":238,"w":195,"h":112},
+	"sourceSize": {"w":1600,"h":800}
+},
+{
+	"filename": "TutorialText.png",
+	"frame": {"x":1,"y":229,"w":165,"h":42},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":715,"y":599,"w":165,"h":42},
+	"sourceSize": {"w":1600,"h":800}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "TutorialText.png",
+	"format": "RGBA8888",
+	"size": {"w":204,"h":272},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:cbc7d8a24fb3aa269083ea6362816c83:677b0570aa6f502c3f3f3fa67dd29d45:162f54cdef065dfd7d54d4e582c40770$"
+}
+}

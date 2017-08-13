@@ -94,8 +94,12 @@ io.on('connection',function(socket){
 
         socket.on('answerCorrect',function(data){
             io.emit('answerCorrect',data,addmode);
-            io.emit('LockPanel');
+            //io.emit('LockPanel');
         });
+        socket.on('answerWrong',function(ID){
+            io.emit('answerWrong',ID);
+            
+        });        
         socket.on('FinishFishing',function(PlayerID){
             io.emit('FinishGame',PlayerID,addmode);
         });

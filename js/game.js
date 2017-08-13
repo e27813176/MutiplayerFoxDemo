@@ -15,16 +15,26 @@ Game.init = function(){
 };
 
 Game.preload = function() {
+    /*
     game.load.atlas('FoxSitting','assets/fishingpage/FoxSitting.png','assets/fishingpage/FoxSitting.json'); 
     game.load.atlas('FoxSittingRod','assets/fishingpage/FoxSittingRod.png','assets/fishingpage/FoxSittingRod.json');
     game.load.atlas('FoxPulling', 'assets/fishingpage/FoxPulling.png', 'assets/fishingpage/FoxPulling.json');
     game.load.atlas('FoxPullingRod', 'assets/fishingpage/FoxPullingRod.png', 'assets/fishingpage/FoxPullingRod.json');
+    game.load.atlas('FoxGetFish', 'assets/fishingpage/FoxGetFish.png', 'assets/fishingpage/FoxGetFish.json');     
+    game.load.atlas('FoxFalling', 'assets/fishingpage/FoxFalling.png', 'assets/fishingpage/FoxFalling.json');     
+    game.load.atlas('Fish', 'assets/fishingpage/Fish.png', 'assets/fishingpage/Fish.json');  
     
     game.load.atlas('Panel','assets/fishingpage/Panel.png','assets/fishingpage/Panel.json');
     game.load.atlas('FishBar','assets/fishingpage/FishBar.png','assets/fishingpage/FishBar.json');
     //EnergyTransfer-------------------------------------------------------------------------------------------------
     game.load.atlas('EnergyTransfer', 'assets/fishingpage/EnergyTransfer.png', 'assets/fishingpage/EnergyTransfer.json');         
-    
+    //Text-----------------------------------------------------------------------------------------------------------------
+    game.load.atlas('TutorialText', 'assets/fishingpage/TutorialText.png', 'assets/fishingpage/TutorialText.json');         
+    //GetFishBoard----------------------------------------------------------------------------------------------------------
+    game.load.atlas('GetFishBoard', 'assets/fishingpage/GetFishBoard.png', 'assets/fishingpage/GetFishBoard.json');   
+        
+    //GetFishBoard----------------------------------------------------------------------------------------------------------
+    game.load.atlas('FailBoard', 'assets/fishingpage/FailBoard.png', 'assets/fishingpage/FailBoard.json');   
     
     //game.load.image('FishBar','assets/fishingpage/FishBar.png');
     game.load.image('FishBarMySelf','assets/fishingpage/FishBarMySelf.png');
@@ -43,6 +53,7 @@ Game.preload = function() {
     game.load.audio('fishingBG', 'assets/audio/fishingBG.mp3');
     game.load.audio('clickFX', 'assets/audio/clickFX.mp3');  
     game.load.audio('add_energyFX', 'assets/audio/add_energyFX.mp3');     
+    */
 };
 
 Game.create = function(){
@@ -78,6 +89,40 @@ Game.create = function(){
     FoxPullingAnimate = FoxPulling.animations.add("FoxPulling",Phaser.Animation.generateFrameNames('FoxPulling_',0,18, '.png', 5), 10, true);
     FoxPulling.alpha = 0;
 
+    FoxFallingRod = game.add.sprite(0, 0, 'FoxFalling');
+    FoxFallingRodAnimate = FoxFallingRod.animations.add("FoxFallingRod",Phaser.Animation.generateFrameNames('FoxFallingRod_',0,20, '.png', 5), 10, true);
+    FoxFallingRod.alpha = 0;
+    //FoxFallingRodAnimate.play("FoxFallingRod",30,false);
+    //FoxFallingRodAnimate.stop();
+
+    FoxFalling = game.add.sprite(0, 0, 'FoxFalling');
+    FoxFallingAnimate = FoxFalling.animations.add("FoxFalling",Phaser.Animation.generateFrameNames('FoxFalling_',0,20, '.png', 5), 10, true);
+    FoxFalling.alpha = 0;
+    //FoxFallingAnimate.play("FoxFalling",30,false);
+    //FoxFallingAnimate.stop();
+
+    FoxGetFishRod = game.add.sprite(0,0,'FoxGetFish');
+    FoxGetFishRodAnimate = FoxGetFishRod.animations.add("FoxGetFishRod",Phaser.Animation.generateFrameNames('FoxGetFishRod_',0,20, '.png', 5), 10, true);
+    FoxGetFishRod.alpha = 0; 
+    //FoxGetFishRodAnimate.play("FoxGetFishRod",20,false);
+    //FoxGetFishRodAnimate.stop();
+    
+    FoxGetFish = game.add.sprite(0,0,'FoxGetFish');
+    FoxGetFishAnimate = FoxGetFish.animations.add("FoxGetFish",Phaser.Animation.generateFrameNames('FoxGetFish_',0,20,'.png', 5), 10, true);
+    FoxGetFish.alpha = 0;
+    //FoxGetFishAnimate.play("FoxGetFish",20,false);    
+    //FoxGetFishAnimate.stop();
+    //FishDynamic--------------------------------------------------------------------------------------------------------
+    OrangeFish = game.add.sprite(0,0,'Fish');
+    OrangeFishAnimate = OrangeFish.animations.add("OrangeFish",Phaser.Animation.generateFrameNames('OrangeFish_',0,20, '.png',5), 10, true);
+    OrangeFish.alpha = 0;
+    //OrangeFishAnimate.play("OrangeFish",30,false);
+    //OrangeFishAnimate.stop();    
+    OrangeFishStop = game.add.sprite(0,0,'Fish');
+    OrangeFishStopAnimate = OrangeFishStop.animations.add("OrangeFishStop",Phaser.Animation.generateFrameNames('OrangeFishStop_',20,25, '.png', 5), 10, true);
+    OrangeFishStop.alpha = 0;         
+    //OrangeFishStopAnimate.play("OrangeFishStop",30,false);
+    //OrangeFishStopAnimate.stop();
 
     startText = game.add.sprite(800, 550, 'startText');
     startText.anchor.setTo(0.5);
@@ -150,9 +195,102 @@ Game.create = function(){
     PanelMask = game.add.sprite(950,500,'PanelMask');
     
     PanelMask.scale.setTo(0,0);
-    PanelMask.alpha = 0.5;
+    PanelMask.alpha = 0;
     PanelMask.events.onInputDown.add(Block, this);
     PanelMask.inputEnabled = true;
+    //TutorialText-----------------------------------------------------------------------------------------------
+    TutorialText = game.add.sprite(0,0,'TutorialText','TutorialText.png');
+    TutorialText.alpha = 0;
+    
+    TutorialAddText = game.add.sprite(0,0,'TutorialText','TutorialAddText.png');
+    TutorialAddText.alpha = 0;
+
+    TutorialMinusText = game.add.sprite(0,0,'TutorialText','TutorialMinusText.png');
+    TutorialMinusText.alpha = 0;
+    //Board------------------------------------------
+    GetFishBoardBG = game.add.sprite(game.world.centerX,game.world.centerY,'GetFishBoard', "GetFishBoard.png");
+    GetFishBoardBG.anchor.setTo(0.5);
+    GetFishBoardBG.alpha = 0;
+        
+    GetFishBoardBtn = game.add.sprite(game.world.centerX,game.world.centerY,'GetFishBoard', "GetFishBoardBtn.png");
+    GetFishBoardBtn.anchor.setTo(0.5);
+    GetFishBoardBtn.alpha = 0;
+        
+    GetFishBoardSeal = game.add.sprite(game.world.centerX,game.world.centerY,'GetFishBoard', "GetFishBoardSeal.png");
+    GetFishBoardSeal.anchor.setTo(0.5);
+    GetFishBoardSeal.alpha = 0;
+       
+    GetFishAmazingSeal = game.add.sprite(game.world.centerX,game.world.centerY,'GetFishBoard', "AmazingSeal.png");
+    GetFishAmazingSeal.anchor.setTo(0.5);
+    GetFishAmazingSeal.alpha = 0;        
+        
+    GetFishContinueBtnHover = game.add.sprite(game.world.centerX,game.world.centerY,'GetFishBoard', "ContinueBtnHover.png");
+    GetFishContinueBtnHover.anchor.setTo(0.5);
+    GetFishContinueBtnHoverTween = game.add.tween(GetFishContinueBtnHover).to({alpha:0.4},500,'Quad.easeInOut',true,0,false,true).loop(true);
+    GetFishContinueBtnHoverTween.pause();        
+    GetFishContinueBtnHover.alpha = 0;
+        
+    GetFishExitBtnHover = game.add.sprite(game.world.centerX,game.world.centerY,'GetFishBoard', "ExitBtnHover.png");
+    GetFishExitBtnHover.anchor.setTo(0.5); 
+    GetFishExitBtnHoverTween = game.add.tween(GetFishExitBtnHover).to({alpha:0.4},500,'Quad.easeInOut',true,0,false,true).loop(true);
+    GetFishExitBtnHoverTween.pause();           
+    GetFishExitBtnHover.alpha = 0;
+      
+    GetFishExitBtnHoverArea = game.add.sprite(game.world.centerX+150,game.world.centerY+102,'GetFishBoard', "BtnArea.png");
+    GetFishExitBtnHoverArea.anchor.setTo(0.5);
+    GetFishExitBtnHoverArea.events.onInputDown.add(GetFishExitBtnDown, this);
+    //GetFishExitBtnHoverArea.events.onInputOver.add(GetFishExitBtnOver, this);
+    //GetFishExitBtnHoverArea.events.onInputOut.add(GetFishExitBtnOut, this);        
+    GetFishExitBtnHoverArea.alpha = 0;
+        
+    GetFishContinueBtnHoverArea = game.add.sprite(game.world.centerX+50,game.world.centerY+102,'GetFishBoard', "BtnArea.png");
+    GetFishContinueBtnHoverArea.anchor.setTo(0.5); 
+    GetFishContinueBtnHoverArea.events.onInputDown.add(GetFishContinueBtnDown, this);
+    //GetFishContinueBtnHoverArea.events.onInputOver.add(GetFishContinueBtnOver, this);
+    //GetFishContinueBtnHoverArea.events.onInputOut.add(GetFishContinueBtnOut, this);          
+    GetFishContinueBtnHoverArea.alpha = 0;        
+       
+    //FailBoard------------------------------------------------------------------------------------------------
+    FailBoardBG = game.add.sprite(game.world.centerX,game.world.centerY,'FailBoard', "FailBoard.png");
+    FailBoardBG.anchor.setTo(0.5);
+    FailBoardBG.alpha = 0;
+        
+    FailBoardBtn = game.add.sprite(game.world.centerX,game.world.centerY,'FailBoard', "FailBoardBtn.png");
+    FailBoardBtn.anchor.setTo(0.5);
+    FailBoardBtn.alpha = 0;
+                
+    FailBoardExitBtnHover = game.add.sprite(game.world.centerX,game.world.centerY,'FailBoard', "FailBoardExitBtnHover.png");
+    FailBoardExitBtnHover.anchor.setTo(0.5);
+    FailBoardExitBtnHoverTween = game.add.tween(FailBoardExitBtnHover).to({alpha:0.4},500,'Quad.easeInOut',true,0,false,true).loop(true);
+    FailBoardExitBtnHoverTween.pause();        
+    FailBoardExitBtnHover.alpha = 0;
+        
+    FailBoardRestartBtnHover = game.add.sprite(game.world.centerX,game.world.centerY,'FailBoard', "FailBoardRestartBtnHover.png");
+    FailBoardRestartBtnHover.anchor.setTo(0.5); 
+    FailBoardRestartBtnHoverTween = game.add.tween(FailBoardRestartBtnHover).to({alpha:0.4},500,'Quad.easeInOut',true,0,false,true).loop(true);
+    FailBoardRestartBtnHoverTween.pause();           
+    FailBoardRestartBtnHover.alpha = 0;
+        
+    FailBoardExitBtnHoverArea = game.add.sprite(game.world.centerX+49,game.world.centerY+70,'FailBoard', "FailBoardBtnArea.png");
+    FailBoardExitBtnHoverArea.anchor.setTo(0.5);
+    FailBoardExitBtnHoverArea.events.onInputDown.add(FailBoardExitBtnDown, this);
+    //FailBoardExitBtnHoverArea.events.onInputOver.add(FailBoardExitBtnOver, this);
+    //FailBoardExitBtnHoverArea.events.onInputOut.add(FailBoardExitBtnOut, this);        
+    FailBoardExitBtnHoverArea.alpha = 0;
+    //FailBoardExitBtnHoverArea.inputEnabled = true;
+        
+    FailBoardRestartBtnHoverArea = game.add.sprite(game.world.centerX-49,game.world.centerY+70,'FailBoard', "FailBoardBtnArea.png");
+    FailBoardRestartBtnHoverArea.anchor.setTo(0.5); 
+    FailBoardRestartBtnHoverArea.events.onInputDown.add(FailBoardRestartBtnDown, this);
+    //FailBoardRestartBtnHoverArea.events.onInputOver.add(FailBoardRestartBtnOver, this);
+    //FailBoardRestartBtnHoverArea.events.onInputOut.add(FailBoardRestartBtnOut, this);          
+    FailBoardRestartBtnHoverArea.alpha = 0;   
+
+    OrangeFishBox = game.add.sprite(game.world.centerX,game.world.centerY,'GetFishBoard', "OrangeFishBox.png");
+    OrangeFishBox.anchor.setTo(0.5);
+    OrangeFishBox.alpha = 0; 
+    
+
     //sound-----------------------------------------------------------------------------------------------------
     rightFX = game.add.audio('rightFX');
     wrongFX = game.add.audio('wrongFX');
@@ -175,6 +313,8 @@ Game.create = function(){
 Game.update = function(){
 
 };
+
+
 function Block(){
     console.log('block');
 }
@@ -264,12 +404,13 @@ Game.startTutorial = function(data,ans,addmode){
         for(var i = 0;i<=2;i++){
             game.add.tween(answerpannelTutorial[i]).to({alpha:1},300,'Quad.easeInOut',true,300);
         }  
-
+        game.add.tween(TutorialText).to({alpha:1},300,'Quad.easeInOut',true,300);
         //createQuestion(equation,answer,addmode);
         tutorial();
     });
 }
 function tutorial(){
+    game.add.tween(TutorialAddText).to({alpha:1},300,'Quad.easeInOut',true,300);
     PanelMask.scale.setTo(0,0);
     CorrectAnswer = 5;
     NumSum.setText('?');
@@ -286,6 +427,8 @@ function tutorial(){
 
 }
 function tutorialMinus(){
+    TutorialAddText.alpha = 0;
+    TutorialMinusText.alpha = 1;
     PanelMask.scale.setTo(0,0);
     CorrectAnswer = 6;
     NumSum.setText(8);
@@ -312,6 +455,7 @@ function checkAnswerTutorial(answerpannelTutorial){
         PanelMask.scale.setTo(0.6,0.7);
         rightFX.play();
     }else{
+        
         wrongFX.play();
     }
 }
@@ -350,12 +494,21 @@ function CorrectTutorial(id,addmode){
     },this);
 
 }
-function CleanBar(id){
-    console.log(id);
-    //game.add.tween(Game.EnergyBar[id]).to({alpha:0},1000,'Quad.easeInOut',true);
-
+function ResetBar(){
+    //console.log(id);
+    for( var i = 0;i<PlayerList.length;i++ ){
+        CleanBarTween = game.add.tween(Game.EnergyBar[PlayerList[i]]).to({alpha:0},1000,'Quad.easeInOut',true);
+    }
+    CleanBarTween.onComplete.add(function(){
+        for( var i = 0;i<PlayerList.length;i++ ){
+            Game.EnergyBar[PlayerList[i]].scale.setTo(0.2,1);
+            Game.EnergyBar[PlayerList[i]].alpha = 1;
+        }  
+     
+    },this);
 }
 function FinishTutorial(){
+    ResetBar();
     var style = { font: "60px Arial", fill: "#ffffff", align: "center" };
     ReadyText = game.add.text(game.world.centerX,game.world.centerY,'Ready', style);
     ReadyText.anchor.set(0.5);
@@ -370,8 +523,11 @@ function FinishTutorial(){
     game.add.tween(NumAdd1).to({alpha:0},1000,'Quad.easeInOut',true);
     game.add.tween(NumAdd2).to({alpha:0},1000,'Quad.easeInOut',true);
 
+    game.add.tween(TutorialText).to({alpha:0},1000,'Quad.easeInOut',true);
+    game.add.tween(TutorialMinusText).to({alpha:0},1000,'Quad.easeInOut',true);
+    
     for(var i = 0;i<=2;i++){
-        game.add.tween(answerpannelTutorial[i]).to({alpha:0.5},1000,'Quad.easeInOut',true);
+        game.add.tween(answerpannelTutorial[i]).to({alpha:0},1000,'Quad.easeInOut',true);
         //FishingAnswerNum[i].destroy();
         game.add.tween(FishingAnswerNum[i]).to({alpha:0},1000,'Quad.easeInOut',true);
     }  
@@ -381,9 +537,11 @@ function FinishTutorial(){
             answerpannelTutorial[i].scale.setTo(0);
 
         }   
-        ReadyTextShowUp = game.add.tween(ReadyText.scale).to({x:1,y:1},300,'Quad.easeInOut',true,1000);
+        
+        ReadyTextShowUp = game.add.tween(ReadyText.scale).to({x:1,y:1},300,'Quad.easeInOut',true,2000);
         ReadyTextShowUp.onComplete.add(function(){
-            ReadyTextFadeOut = game.add.tween(ReadyText.scale).to({x:0,y:0},50,'Quad.easeInOut',true,1000);
+            alertFX.play();
+            ReadyTextFadeOut = game.add.tween(ReadyText.scale).to({x:0,y:0},50,'Quad.easeInOut',true,2000);
             ReadyTextFadeOut.onComplete.add(function(){
                 Client.StartFishing();
             },this);
@@ -464,6 +622,14 @@ function checkAnswer(answerpannel){
         }
         rightFX.play();
     }else{
+        Client.AnswerWrong(MyPlayerID);
+        PanelWrongFx001.animations.play("PanelWrongFx001",30,false);
+        PanelWrongFx001.alpha = 1;
+        PanelWrongFx002.animations.play("PanelWrongFx002",30,false);
+        PanelWrongFx002.alpha = 1;
+        PanelWrongFx003.animations.play("PanelWrongFx003",30,false);
+        PanelWrongFx003.alpha = 1;
+        
         wrongFX.play();
     }
 }
@@ -486,6 +652,16 @@ Game.LockAnswerPanel = function(){
 
 };
 */
+Game.WrongCheck = function(PlayerID){
+    /*
+    if( Game.EnergyBar[PlayerID].scale.x >= 0.2 ){
+        game.add.tween(Game.EnergyBar[PlayerID].scale).to({x:'-0.1'},300,'Quad.easeIn',true);
+    }
+    */
+    game.add.tween(Game.EnergyBar[PlayerID].scale).to({x:0.2},500,'Quad.easeIn',true);
+    
+
+};
 Game.CorrectCheck = function(id,addmode){
     CorrectAnswer = -100;
     PanelMask.scale.setTo(0.6,0.7);
@@ -560,11 +736,61 @@ Game.FinishGame = function(PlayerID,addmode){
             add_energyFX.play();
         }
     },this);
+    
+    fishing.stop();
+
+    FoxPulling.alpha = 0;
+    FoxPullingRod.alpha = 0;
+    FoxPullingAnimate.stop();
+    FoxPullingRodAnimate.stop();    
 
     if(PlayerID == MyPlayerID){
-        console.log('win');
+        successFX.play();
+        FoxGetFish.animations.play("FoxGetFish",20,false);
+        FoxGetFish.alpha = 1;
+        
+        FoxGetFishRod.animations.play("FoxGetFishRod",20,false);
+        FoxGetFishRod.alpha = 1;       
+        
+        OrangeFish.animations.play("OrangeFish",20,false);
+        OrangeFish.alpha = 1;     
+
+        OrangeFishAnimate.onComplete.add(function () {
+            OrangeFish.alpha = 0;
+            OrangeFishStop.alpha = 1;
+            OrangeFishStop.animations.play("OrangeFishStop",30,true);
+        
+        }, this); 	
+
+        GetFishBoardBG.scale.setTo(0);
+        GetFishBoardBG.alpha = 1;
+        game.add.tween(GetFishBoardBG.scale).to({x:1,y:1},500,'Quad.easeOut',true,2000);
+        game.add.tween(OrangeFishBox).to({alpha:1},500,'Quad.easeOut',true,2500);
+
+        GetFishBoardBtn.alpha = 0;
+        GetFishBoardBtnTween = game.add.tween(GetFishBoardBtn).to({alpha:1},500,'Quad.easeOut',true,4000);  
+        GetFishBoardBtnTween.onComplete.add(function(){
+            GetFishExitBtnHoverArea.inputEnabled = true;
+            GetFishContinueBtnHoverArea.inputEnabled = true;        
+        },this);
+        
     }else{
-        console.log('lose');
+        failureFX.play();
+        FoxFalling.animations.play("FoxFalling",25,false);
+        FoxFalling.alpha = 1;
+        FoxFallingRod.animations.play("FoxFallingRod",25,false);
+        FoxFallingRod.alpha = 1;        
+        //console.log('lose');
+        FailBoardBG.scale.setTo(0);
+        FailBoardBG.alpha = 1;
+        game.add.tween(FailBoardBG.scale).to({x:1,y:1},500,'Quad.easeOut',true,2000);
+        FailBoardBtnTween = game.add.tween(FailBoardBtn).to({alpha:1},500,'Quad.easeOut',true,3000);
+        FailBoardBtnTween.onComplete.add(function(){
+            
+            FailBoardExitBtnHoverArea.inputEnabled = true;
+            FailBoardRestartBtnHoverArea.inputEnabled = true;          
+        },this); 
+
     }
 
 };
@@ -611,4 +837,50 @@ function createAnswerString(answer){
             answerindex++;
         }           
     }        
+}
+
+function FailBoardRestartBtnDown(){
+    game.add.tween(FailBoardBG).to({alpha:0},500,'Quad.easeOut',true,0);
+    game.add.tween(FailBoardBtn).to({alpha:0},500,'Quad.easeOut',true,0);
+    //FailBoardRestartBtnHoverTween.pause();        
+    //FailBoardRestartBtnHover.alpha = 0;  
+    FailBoardExitBtnHoverArea.inputEnabled = false;
+    FailBoardRestartBtnHoverArea.inputEnabled = false;  
+    //restartfishing();
+}
+
+function FailBoardExitBtnDown(){
+    game.add.tween(FailBoardBG).to({alpha:0},500,'Quad.easeOut',true,0);
+    game.add.tween(FailBoardBtn).to({alpha:0},500,'Quad.easeOut',true,0);
+    //ExitFishingPage();
+    FailBoardExitBtnHoverArea.inputEnabled = false;
+    FailBoardRestartBtnHoverArea.inputEnabled = false;
+    //FailBoardExitBtnHoverTween.pause();        
+    //FailBoardExitBtnHover.alpha = 0;    
+}
+
+function GetFishContinueBtnDown(){
+    game.add.tween(GetFishBoardBG).to({alpha:0},500,'Quad.easeOut',true,0);
+    game.add.tween(GetFishBoardBtn).to({alpha:0},500,'Quad.easeOut',true,0);
+    game.add.tween(OrangeFishBox).to({alpha:0},500,'Quad.easeOut',true,0);
+    
+    //timer.stop(false);
+    //ContinueFishing();
+    GetFishExitBtnHoverArea.inputEnabled = false;
+    GetFishContinueBtnHoverArea.inputEnabled = false;       
+    //GetFishContinueBtnHoverTween.pause();           
+    //GetFishContinueBtnHover.alpha = 0;        
+}
+
+function GetFishExitBtnDown(){
+    game.add.tween(GetFishBoardBG).to({alpha:0},500,'Quad.easeOut',true,0);
+    game.add.tween(GetFishBoardBtn).to({alpha:0},500,'Quad.easeOut',true,0);
+    game.add.tween(OrangeFishBox).to({alpha:0},500,'Quad.easeOut',true,0);
+
+    GetFishExitBtnHoverArea.inputEnabled = false;
+    GetFishContinueBtnHoverArea.inputEnabled = false;       
+    
+    //GetFishExitBtnHoverTween.pause();           
+    //GetFishExitBtnHover.alpha = 0;    
+    //ExitFishingPage();
 }

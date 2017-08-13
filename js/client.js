@@ -1,6 +1,3 @@
-/**
- * Created by Jerome on 03-03-17.
- */
 
 var Client = {};
 Client.socket = io.connect();
@@ -32,6 +29,9 @@ Client.StartFishing = function(){
 };
 Client.AnswerCorrect = function(data){
     Client.socket.emit('answerCorrect',data);    
+};
+Client.AnswerWrong = function(MyPlayerID){
+    Client.socket.emit('answerWrong',MyPlayerID);
 };
 Client.NextQuestion = function(){
     Client.socket.emit('createNewQuestion');
@@ -78,13 +78,13 @@ Client.socket.on('allplayers',function(data){
     });
     Client.socket.on('FinishTutorial',function(){
         FinishTutorial();
-        for(var i = 0; i < data.length; i++){
-            CleanBar(data[i].id);
-        }
     
     });
     Client.socket.on('answerCorrect',function(data,addmode){
         Game.CorrectCheck(data,addmode); 
+    });
+    Client.socket.on('answerWrong',function(ID){
+        Game.WrongCheck(ID); 
     });
     Client.socket.on('newQuestion',function(equation,answer,addmode){
         createQuestion(equation,answer,addmode);
